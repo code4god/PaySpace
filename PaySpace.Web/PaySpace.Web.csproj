@@ -14,6 +14,10 @@
     <ProjectReference Include="..\PaySpace.TaxCalculator\PaySpace.TaxCalculator.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resource\" />
+  </ItemGroup>
+
 
 
 </Project>

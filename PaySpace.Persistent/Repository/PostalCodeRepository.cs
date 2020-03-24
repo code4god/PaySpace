@@ -1,17 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PaySpace.Persistent.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using PaySpace.Persistent.Model;
 
 namespace PaySpace.Persistent.Repository
 {
-    public class PostalCodeRepository : Repository<PostalCode>, IPostalCodeRepository
+    public class PostalCodeRepository //: Repository<PostalCode>, IPostalCodeRepository
     {
-        public PostalCodeRepository(DbContext context) : base(context)
-        {
-        }
+        //public PostalCodeRepository(DbContext context) : base(context)
+        //{
+        //}
 
         // protected readonly PaySpaceDbContext DbContext;
 

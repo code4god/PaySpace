@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PaySpace.Persistent
+namespace PaySpace.DataAccess
 {
     public interface IUnitOfWork
     {

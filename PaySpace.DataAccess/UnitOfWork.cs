@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PaySpace.Persistent
+namespace PaySpace.DataAccess
 {
     class UnitOfWork : IUnitOfWork
     {

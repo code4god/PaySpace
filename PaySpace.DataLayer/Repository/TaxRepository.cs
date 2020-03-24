@@ -1,10 +1,10 @@
-﻿using PaySpace.DataAccess.Model;
+﻿using PaySpace.DataLayer.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PaySpace.DataAccess
+namespace PaySpace.DataLayer
 {
     public class TaxRepository : ITaxRepository
     {
@@ -17,10 +17,15 @@ namespace PaySpace.DataAccess
         {
             _context.Add(tax);
         }
-
-        public void Find(int Id)
+        
+        public Tax Get(int Id)
         {
-            _context.Taxes.Where(x => x.Id == Id);
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Tax> GetAll()
+        {
+            return _context.Taxes.ToList();
         }
 
         public void Remove(Tax tax)

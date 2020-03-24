@@ -29,18 +29,19 @@ namespace PaySpace.Web.Controllers
         {
             _logger.LogInformation("hellow!");
             var tax = new Tax();
+            var codes = new List<PostalCode>();
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44342");
                 //HTTP GET
-                var responseTask = await client.GetAsync("/tax/flatrate");
+                var responseTask = await client.GetAsync("/postalCode/codes"); //await client.GetAsync("/tax/flatrate");
                
                 if (responseTask.IsSuccessStatusCode)
                 {
                     var result = responseTask.Content.ReadAsStringAsync().Result;
-
-                    tax = JsonConvert.DeserializeObject<Tax>(result);
+                    codes = JsonConvert.DeserializeObject<List<PostalCode>>(result);
+                    //tax = JsonConvert.DeserializeObject<Tax>(result);
                 }
                 //else //web api sent error response 
                 //{

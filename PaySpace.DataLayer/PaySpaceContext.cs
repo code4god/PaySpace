@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PaySpace.DataAccess.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PaySpace.DataLayer.Model;
 
-namespace PaySpace.DataAccess
+namespace PaySpace.DataLayer
 {
     public class PaySpaceContext : DbContext
     {
@@ -17,7 +12,9 @@ namespace PaySpace.DataAccess
         }
 
         public DbSet<Tax> Taxes { get; set; }
-       
+        public DbSet<PostalCode> PostalCodes { get; set; }
+        public DbSet<CalculationType> CalculationTypes { get; set; }
+
 
     }
 }

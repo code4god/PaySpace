@@ -6,7 +6,7 @@ namespace PaySpace.Persistent.Model
 {
     public class PostalCode
     {
-        public int Id { get; set; }
-        public string Code { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Code { get; set; }
     }
 }

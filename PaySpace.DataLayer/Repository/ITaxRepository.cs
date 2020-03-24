@@ -1,14 +1,15 @@
-﻿using PaySpace.DataAccess.Model;
-using System;
+﻿using PaySpace.DataLayer.Model;
 using System.Collections.Generic;
-using System.Text;
 
-namespace PaySpace.DataAccess
+namespace PaySpace.DataLayer
 {
     public interface ITaxRepository
     {
         void Add(Tax tax);
         void Remove(Tax tax);
-        void Find(int Id);
+        Tax Get(int Id);
+
+        IEnumerable<Tax> GetAll();
+
     }
 }
