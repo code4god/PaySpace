@@ -25,6 +25,7 @@ namespace PaySpace.Web.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             _logger.LogInformation("hellow!");
@@ -43,17 +44,39 @@ namespace PaySpace.Web.Controllers
                     codes = JsonConvert.DeserializeObject<List<PostalCode>>(result);
                     //tax = JsonConvert.DeserializeObject<Tax>(result);
                 }
-                //else //web api sent error response 
-                //{
+                else //web api sent error response 
+                {
                 //    //log response status here..
-
-                //    students = Enumerable.Empty<StudentViewModel>();
-
-                //    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
-                //}
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+                }
             }
             var viewModel = _mapper.Map<HomeViewModel>(tax);
+            viewModel.PostalCodes = codes;
             return View(viewModel);
+        }
+
+        public async Task<IActionResult> CalculateTax (HomeViewModel viewModel)
+        {
+            var tax = new Tax();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44342");
+                //HTTP GET
+                var responseTask =  await client.GetAsync($"/tax/flatrate?income={viewModel.Income}"); //await client.GetAsync("/tax/flatrate");
+
+                if (responseTask.IsSuccessStatusCode)
+                {
+                    var result = responseTask.Content.ReadAsStringAsync().Result;
+                    tax = JsonConvert.DeserializeObject<Tax>(result);
+                    //tax = JsonConvert.DeserializeObject<Tax>(result);
+                }
+                else //web api sent error response 
+                {
+                    //    //log response status here..
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+                }
+            }
+            return Ok(tax);
         }
 
         public IActionResult Privacy()

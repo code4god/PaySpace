@@ -2,12 +2,43 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<head>
+</head>
+<body>
+    @*@using (Html.BeginForm("CalculateTax", "Home", FormMethod.Post))
+    {*@
+        <div class="text-center">
+            <h1 class="display-4">PaySpace Tax Calculator</h1>
 
-    <div class="text-center">
-        <h1 class="display-4">PaySpace Tax Calculator</h1>
+            <p>@Html.DropDownListFor(m => m.SelectedPostalCodeId, new SelectList(Model.PostalCodes, "Id", "Code"), "Please select")</p>
+            <p>Income: @Html.TextBoxFor(m => m.Income)</p>
+            <p>Tax Amount: @Model.Amount</p>
+            <p><input type="button" id="btnCalculate" value="Calculate Tax" /> </p>
+        </div>
 
-        @*<p>@Html.DropDownListFor(m=> m.PostalCodes,)</p>*@
-        <p>Income: @Model.Income</p>
-        <p>Tax Amount: @Model.Amount</p>
-    </div>
-    
+    @*}*@
+</body>
+
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js">
+    $(document).ready(function () {
+        $("#btnCalculate").click(function (e) {
+            e.preventDefault();
+            alert("sup");
+            $.ajax({
+                url: '/home/CalculateTax',
+                type: 'POST',
+                data: {
+                    Income: @Model.Income,
+                    SelectedPostalCodeId: @Model.SelectedPostalCodeId,
+
+                },
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    alert(data.success);
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        }
+</script>

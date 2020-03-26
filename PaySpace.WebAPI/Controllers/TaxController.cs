@@ -23,14 +23,14 @@ namespace PaySpace.WebAPI.Controllers
 
         [HttpGet]
         [Route("tax/flatrate", Name = "FlatRate")]
-        public async Task<IActionResult> GetFlatRateAsync()
+        public async Task<IActionResult> GetFlatRateAsync(decimal income)
         {
             var settings = new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore,
                 MissingMemberHandling = MissingMemberHandling.Ignore
             };
-            var tax = await _calculator.GetFlatRateTaxAsync(1000);
+            var tax = await _calculator.GetFlatRateTaxAsync(income);
             return Ok(JsonConvert.SerializeObject(tax, settings));
         }
 

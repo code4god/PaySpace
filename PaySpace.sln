@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaySpace.TaxCalculator", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaySpace.Web", "PaySpace.Web\PaySpace.Web.csproj", "{05184B0C-E682-4397-A4D3-F70EBB69C709}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaySpace.WebAPI", "PaySpace.WebAPI\PaySpace.WebAPI.csproj", "{3F404F5F-EC3A-4146-A0C6-F49A366EEC92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaySpace.WebAPI", "PaySpace.WebAPI\PaySpace.WebAPI.csproj", "{3F404F5F-EC3A-4146-A0C6-F49A366EEC92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaySpace.DataLayer", "PaySpace.DataLayer\PaySpace.DataLayer.csproj", "{057510DD-6D88-45A0-BE77-FB17E02E43E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaySpace.DataLayer", "PaySpace.DataLayer\PaySpace.DataLayer.csproj", "{057510DD-6D88-45A0-BE77-FB17E02E43E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaySpace.UnitTests", "PaySpace.UnitTests\PaySpace.UnitTests.csproj", "{2F345E3F-9EA5-498F-BE87-C86F8E136108}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{057510DD-6D88-45A0-BE77-FB17E02E43E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{057510DD-6D88-45A0-BE77-FB17E02E43E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{057510DD-6D88-45A0-BE77-FB17E02E43E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F345E3F-9EA5-498F-BE87-C86F8E136108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F345E3F-9EA5-498F-BE87-C86F8E136108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F345E3F-9EA5-498F-BE87-C86F8E136108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F345E3F-9EA5-498F-BE87-C86F8E136108}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
