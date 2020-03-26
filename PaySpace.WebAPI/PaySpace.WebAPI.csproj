@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PaySpace.DataAccess\PaySpace.DataAccess.csproj" />
     <ProjectReference Include="..\PaySpace.DataLayer\PaySpace.DataLayer.csproj" />
     <ProjectReference Include="..\PaySpace.TaxCalculator\PaySpace.TaxCalculator.csproj" />
   </ItemGroup>
