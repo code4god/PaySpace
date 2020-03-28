@@ -7,7 +7,7 @@ namespace PaySpace.WebAPI
     {
         public MappingProfile()
         {
-            CreateMap<TaxCalculator.Tax, Tax>();
+            CreateMap<TaxCalculator.Tax, Tax>().ForMember(dest=> dest.PostalCode, opt => opt.MapFrom(src=> src.PostalCodeId)).ReverseMap();
         }
 
     }

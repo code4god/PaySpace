@@ -79,9 +79,22 @@ namespace PaySpace.WebAPI.Controllers
                 MissingMemberHandling = MissingMemberHandling.Ignore
             };
 
-            var saveTax = _mapper.Map<DataLayer.Model.Tax>(tax);
-            _taxRepository.Add(saveTax);
-            return Ok(JsonConvert.SerializeObject(tax, settings));
+            var saveTax = new DataLayer.Model.Tax();
+
+            try
+            {
+                tax.PostalCodeId = postalCode.Id;
+                saveTax = _mapper.Map<DataLayer.Model.Tax>(tax);
+                _taxRepository.Add(saveTax);
+
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex;
+            }
+             
+            return Ok(JsonConvert.SerializeObject(saveTax, settings));
         }
 
         [HttpGet]

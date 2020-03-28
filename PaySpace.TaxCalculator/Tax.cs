@@ -10,6 +10,7 @@ namespace PaySpace.TaxCalculator
         public decimal Income { get; set; }
         public decimal Amount { get; set; }
         public string PostalCode { get; set; }
+        public int PostalCodeId { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 }
