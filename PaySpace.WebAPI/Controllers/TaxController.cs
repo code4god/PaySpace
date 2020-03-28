@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PaySpace.DataLayer;
+using PaySpace.DataLayer.Repository;
 using PaySpace.TaxCalculator;
 
 namespace PaySpace.WebAPI.Controllers
@@ -13,15 +14,17 @@ namespace PaySpace.WebAPI.Controllers
     {
         private ICalculator _calculator;
         private ITaxRepository _taxRepository;
+        private IPostalCodeRepository _postalCodeRepository;
         private IMapper _mapper;
-        public TaxController(ICalculator calculator, ITaxRepository taxRepository, IMapper mapper)
+        public TaxController(ICalculator calculator, ITaxRepository taxRepository, IPostalCodeRepository postalCodeRepository, IMapper mapper)
         {
             _calculator = calculator;
             _taxRepository = taxRepository;
+            _postalCodeRepository = postalCodeRepository;
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("tax/flatrate", Name = "FlatRate")]
         public async Task<IActionResult> GetFlatRateAsync(decimal income)
         {
@@ -31,6 +34,53 @@ namespace PaySpace.WebAPI.Controllers
                 MissingMemberHandling = MissingMemberHandling.Ignore
             };
             var tax = await _calculator.GetFlatRateTaxAsync(income);
+            return Ok(JsonConvert.SerializeObject(tax, settings));
+        }
+
+
+        [HttpPost]
+        [Route("tax/calculatetaxtype", Name = "TaxType")]
+        public async Task<IActionResult> CalculateTaxByTypeAsync(int postalCodeId, decimal income)
+        {
+            var postalCode = _postalCodeRepository.Get(postalCodeId);
+            var tax = new Tax();
+            switch (postalCode.Code)
+            {
+                case "7441":
+                    {
+                        tax = await _calculator.GetProgressiveTaxAsync(income);                        
+                        break;
+                    }
+
+                case "A100":
+                    {
+                        tax = await _calculator.GetFlatValueTaxAsync(income);
+                        break;
+                    }
+
+                case "7000":
+                    {
+                        tax = await _calculator.GetFlatRateTaxAsync(income);
+                        break;
+                    }
+
+                case "1000":
+                    {
+                        tax = await _calculator.GetProgressiveTaxAsync(income);
+                        break;
+                    }
+                default:
+                    break;
+            }
+
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
+            var saveTax = _mapper.Map<DataLayer.Model.Tax>(tax);
+            _taxRepository.Add(saveTax);
             return Ok(JsonConvert.SerializeObject(tax, settings));
         }
 

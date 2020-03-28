@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PaySpace.DataLayer.Repository
 {
@@ -10,6 +11,8 @@ namespace PaySpace.DataLayer.Repository
         void Add(PostalCode postalCode);
         void Remove(PostalCode postalCode);
         PostalCode Get(int Id);
+        Task<PostalCode> Get(PostalCode postalCode);
+
         IEnumerable<PostalCode> GetAll();
     }
 }

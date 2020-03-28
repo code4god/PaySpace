@@ -5,40 +5,47 @@
 <head>
 </head>
 <body>
-    @*@using (Html.BeginForm("CalculateTax", "Home", FormMethod.Post))
-    {*@
+    @using (Html.BeginForm("calculatetax", "home", FormMethod.Post))
+    {
         <div class="text-center">
             <h1 class="display-4">PaySpace Tax Calculator</h1>
 
-            <p>@Html.DropDownListFor(m => m.SelectedPostalCodeId, new SelectList(Model.PostalCodes, "Id", "Code"), "Please select")</p>
-            <p>Income: @Html.TextBoxFor(m => m.Income)</p>
+            <p>
+                @Html.DropDownListFor(m => m.SelectedPostalCodeId, new SelectList(Model.PostalCodes, "Id", "Code"), "Please select", new { id = "ddlPostalCodes" })
+            </p>
+            <p>Income: @Html.TextBoxFor(m => m.Income, new { id = "txtIncome" })</p>
             <p>Tax Amount: @Model.Amount</p>
-            <p><input type="button" id="btnCalculate" value="Calculate Tax" /> </p>
+            <p><input type="submit" id="btnCalculate" value="Submit" /></p>
+            @*<p><input type="button" id="btnCalculate" value="Calculate Tax" /> </p>*@
         </div>
-
-    @*}*@
+    }
 </body>
 
-<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js">
-    $(document).ready(function () {
-        $("#btnCalculate").click(function (e) {
-            e.preventDefault();
-            alert("sup");
-            $.ajax({
-                url: '/home/CalculateTax',
-                type: 'POST',
-                data: {
-                    Income: @Model.Income,
-                    SelectedPostalCodeId: @Model.SelectedPostalCodeId,
-
-                },
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    alert(data.success);
-                },
-                error: function () {
-                    alert("error");
-                }
-            });
-        }
-</script>
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+   
+ @*<script>
+     var homeViewModel = {
+         Test: $('#txtIncome').val(),
+     };
+        $(document).ready(function () {
+            $("#btnCalculate").click(function (e) {
+                e.preventDefault();
+                var request = JSON.stringify({ "HomeViewModel": { Test: "sdf" } });
+                console.log(request);
+                $.ajax({
+                    url: '/home/CalculateTax',
+                    async: true,
+                    dataType: 'json',
+                    type: 'GET',
+                    data: request,
+                    contentType: "application/json",
+                    success: function (data) {
+                        alert(data.success);
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+            })
+        });
+    </script>*@

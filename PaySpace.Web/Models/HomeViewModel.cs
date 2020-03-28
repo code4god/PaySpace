@@ -10,14 +10,9 @@ namespace PaySpace.Web.Models
         public decimal Income { get; set; }
         public decimal Amount { get; set; }
         public int SelectedPostalCodeId { get; set; }
+        public PostalCode SelectedPostalCode { get; set; }
         public DateTime CreatedDate { get; set; }
-
+        public string Test { get; set; }
         public List<PostalCode> PostalCodes { get; set; }
-    }
-
-    public class PostalCode
-    {
-        public int Id { get; set; }
-        public string Code { get; set; }
-    }
+    }    
 }

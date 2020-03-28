@@ -13,6 +13,7 @@ namespace PaySpace.Web
         public MappingProfile()
         {
             CreateMap<Tax, HomeViewModel>(); 
+            CreateMap<Tax, CalculateTaxViewModel>();
         }
 
     }

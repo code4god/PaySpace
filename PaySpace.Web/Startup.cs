@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using PaySpace.TaxCalculator;
 
 namespace PaySpace.Web
@@ -29,6 +30,8 @@ namespace PaySpace.Web
             services.AddMvc();
             services.AddScoped<ICalculator, Calculator>();
             services.AddAutoMapper(typeof(MappingProfile));
+            //services.AddMvc().AddNewtonsoftJson(options =>  options.SerializerSettings.ContractResolver =
+            //                                            new CamelCasePropertyNamesContractResolver());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,15 +51,12 @@ namespace PaySpace.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            //loggerFactory.AddLog4Net();
         }
     }
 }

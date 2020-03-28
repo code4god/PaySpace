@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PaySpace.DataLayer.Repository
 {
@@ -18,9 +19,14 @@ namespace PaySpace.DataLayer.Repository
             throw new NotImplementedException();
         }
 
+        public async Task<PostalCode> Get(PostalCode postalCode)
+        {
+           return await _context.PostalCodes.FindAsync(postalCode);
+        }
+
         public PostalCode Get(int Id)
         {
-            throw new NotImplementedException();
+            return _context.PostalCodes.Where(x => x.Id == Id).SingleOrDefault();
         }
 
         public IEnumerable<PostalCode> GetAll()
