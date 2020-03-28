@@ -1,4 +1,4 @@
-﻿@model CalculateTaxViewModel
+﻿@model TaxViewModel
 @{
     
 }
@@ -19,6 +19,7 @@
                 <thead>
                     <tr>
                         <th>Postal Code</th>
+                        <th>Tax Type</th>
                         <th>Income</th>
                         <th>Taxable Amount</th>
                         <th>Created Date</th>
@@ -26,7 +27,8 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>@Model.PostalCode</td>
+                        <td>@Model.Code</td>
+                        <td>@Model.CalculationType</td>
                         <td>@Model.Income</td>
                         <td>@Model.Amount</td>
                         <td>@Model.CreatedDate</td>
@@ -38,7 +40,5 @@
             </p>
         </div>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

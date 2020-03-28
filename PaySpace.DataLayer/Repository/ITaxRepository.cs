@@ -1,12 +1,13 @@
 ﻿using PaySpace.DataLayer.Model;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PaySpace.DataLayer
 {
     public interface ITaxRepository
     {
-        void Add(Tax tax);
-        void Remove(Tax tax);
+        Task AddAsync(Tax tax);
+        Task RemoveAsync(Tax tax);
         Tax Get(int Id);
 
         IEnumerable<Tax> GetAll();

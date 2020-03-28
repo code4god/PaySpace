@@ -14,9 +14,11 @@ namespace PaySpace.DataLayer.Repository
         {
             _context = paySpaceContext;
         }
-        public void Add(PostalCode postalCode)
+        public Task AddAsync(PostalCode postalCode)
         {
-            throw new NotImplementedException();
+            _context.PostalCodes.Add(postalCode);
+            _context.SaveChangesAsync();
+            return Task.CompletedTask;
         }
 
         public async Task<PostalCode> Get(PostalCode postalCode)
@@ -34,9 +36,11 @@ namespace PaySpace.DataLayer.Repository
             return _context.PostalCodes.ToList();
         }
 
-        public void Remove(PostalCode postalCode)
+        public Task RemoveAsync(PostalCode postalCode)
         {
-            throw new NotImplementedException();
+            _context.PostalCodes.Remove(postalCode);
+            _context.SaveChangesAsync();
+            return Task.CompletedTask;
         }
     }
 }

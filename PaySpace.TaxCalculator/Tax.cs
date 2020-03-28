@@ -12,5 +12,6 @@ namespace PaySpace.TaxCalculator
         public string PostalCode { get; set; }
         public int PostalCodeId { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string CalculationType { get; set; }
     }
 }

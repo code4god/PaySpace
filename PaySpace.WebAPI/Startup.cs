@@ -31,6 +31,7 @@ namespace PaySpace.WebAPI
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<ITaxRepository, TaxRepository>();
             services.AddScoped<IPostalCodeRepository, PostalCodeRepository>();
+            services.AddScoped<ICalculationTypesRepository, CalculationTypesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

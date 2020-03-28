@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PaySpace.TaxCalculator;
+using PaySpace.Web.Dto;
 using PaySpace.Web.Models;
 
 namespace PaySpace.Web.Controllers
@@ -26,10 +27,26 @@ namespace PaySpace.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var result = await HttpClientGet("tax/getall");
-            var viewModel = new CalculateTaxViewModel
+            var viewModel = new TaxViewModel
             {
                 Taxes = JsonConvert.DeserializeObject<List<Tax>>(result).OrderByDescending(t=> t.CreatedDate)
             };
+
+            foreach (var tax in viewModel.Taxes)
+            {
+                result = await HttpClientGet($"calctype/gettypebypostalcode?Id={tax.PostalCode}"); 
+                var calculationType = JsonConvert.DeserializeObject<CalculationType>(result);
+                tax.CalculationType = calculationType.Description;
+            }
+
+            result = await HttpClientGet("postalCode/codes");
+            var postalCodes = JsonConvert.DeserializeObject<List<PostalCode>>(result);
+            foreach (var tax in viewModel.Taxes)
+            {
+                var postalCode = postalCodes.FirstOrDefault(p => p.Id == int.Parse(tax.PostalCode));
+                if (postalCode != null)
+                    tax.PostalCode = postalCode.Code;
+            }
             return View(viewModel);
         }
 
@@ -39,7 +56,7 @@ namespace PaySpace.Web.Controllers
         {
             var tax = new Tax();
             tax = await HttpClientPost(viewModel, tax);
-            var calcTaxViewModel = _mapper.Map<CalculateTaxViewModel>(tax);           
+            var calcTaxViewModel = _mapper.Map<TaxViewModel>(tax);           
 
             return View("CalculateTax", calcTaxViewModel);
         }

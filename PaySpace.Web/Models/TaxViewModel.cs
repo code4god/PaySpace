@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace PaySpace.Web.Models
 {
-    public class CalculateTaxViewModel
+    public class TaxViewModel
     {
         public decimal Income { get; set; }        
         public decimal Amount { get; set; }
-        public string PostalCode { get; set; }
+        public string Code { get; set; }
+        public string CalculationType { get; set; }
         public DateTime CreatedDate { get; set; }
         public IEnumerable<Tax> Taxes { get; set; }
     }

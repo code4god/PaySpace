@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PaySpace.DataLayer
 {
@@ -13,16 +14,17 @@ namespace PaySpace.DataLayer
         {
             _context = paySpaceContext;
         }
-        public void Add(Tax tax)
+        public Task AddAsync(Tax tax)
         {
             tax.CreatedDate = DateTime.Now;
             _context.Add(tax);
-            _context.SaveChanges();
+            _context.SaveChangesAsync();
+            return Task.CompletedTask;
         }
         
         public Tax Get(int Id)
         {
-            throw new NotImplementedException();
+            return _context.Taxes.Where(t => t.Id == Id).SingleOrDefault();
         }
 
         public IEnumerable<Tax> GetAll()
@@ -30,9 +32,11 @@ namespace PaySpace.DataLayer
             return _context.Taxes.ToList();
         }
 
-        public void Remove(Tax tax)
+        public Task RemoveAsync(Tax tax)
         {
             _context.Remove(tax);
+            _context.SaveChangesAsync();
+            return Task.CompletedTask;
         }
     }
 }

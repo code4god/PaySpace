@@ -8,8 +8,8 @@ namespace PaySpace.DataLayer.Repository
 {
     public interface IPostalCodeRepository
     {
-        void Add(PostalCode postalCode);
-        void Remove(PostalCode postalCode);
+        Task AddAsync(PostalCode postalCode);
+        Task RemoveAsync(PostalCode postalCode);
         PostalCode Get(int Id);
         Task<PostalCode> Get(PostalCode postalCode);
 

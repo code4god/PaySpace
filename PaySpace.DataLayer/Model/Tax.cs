@@ -18,10 +18,9 @@ namespace PaySpace.DataLayer.Model
         
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
-
        
-        public int PostalCode { get; set; }
-        
+        public int PostalCode { get; set; }        
+
         public DateTime CreatedDate { get; set; }
     }
 }

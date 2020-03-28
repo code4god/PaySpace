@@ -12,8 +12,8 @@ namespace PaySpace.Web
     {
         public MappingProfile()
         {
-            CreateMap<Tax, HomeViewModel>(); 
-            CreateMap<Tax, CalculateTaxViewModel>();
+            CreateMap<Tax, HomeViewModel>().ReverseMap(); 
+            CreateMap<Tax, TaxViewModel>().ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.PostalCode)).ReverseMap();
         }
 
     }

@@ -30,10 +30,8 @@ namespace PaySpace.Web.Controllers
             _logger.LogInformation("hello web app!");
             var result = await HttpClientGet($"/postalCode/codes");
             var codes = JsonConvert.DeserializeObject<List<PostalCode>>(result);
-            var viewModel = new HomeViewModel
-            {
-                PostalCodes = codes
-            };
+            var viewModel = new HomeViewModel();
+            viewModel.OnGet(codes);
             return View(viewModel);
         }
 

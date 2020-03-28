@@ -15,12 +15,14 @@ namespace PaySpace.WebAPI.Controllers
         private ICalculator _calculator;
         private ITaxRepository _taxRepository;
         private IPostalCodeRepository _postalCodeRepository;
+        private ICalculationTypesRepository _calculationTypesRepository;
         private IMapper _mapper;
-        public TaxController(ICalculator calculator, ITaxRepository taxRepository, IPostalCodeRepository postalCodeRepository, IMapper mapper)
+        public TaxController(ICalculator calculator, ITaxRepository taxRepository, IPostalCodeRepository postalCodeRepository, ICalculationTypesRepository calculationTypesRepository, IMapper mapper)
         {
             _calculator = calculator;
             _taxRepository = taxRepository;
             _postalCodeRepository = postalCodeRepository;
+            _calculationTypesRepository = calculationTypesRepository;
             _mapper = mapper;
         }
 
@@ -43,12 +45,13 @@ namespace PaySpace.WebAPI.Controllers
         public async Task<IActionResult> CalculateTaxByTypeAsync(int postalCodeId, decimal income)
         {
             var postalCode = _postalCodeRepository.Get(postalCodeId);
+            var calculationType = _calculationTypesRepository.GetCalculationTypeByPostalCode(postalCodeId);
             var tax = new Tax();
             switch (postalCode.Code)
             {
                 case "7441":
                     {
-                        tax = await _calculator.GetProgressiveTaxAsync(income);                        
+                        tax = await _calculator.GetProgressiveTaxAsync(income);
                         break;
                     }
 
@@ -78,23 +81,14 @@ namespace PaySpace.WebAPI.Controllers
                 NullValueHandling = NullValueHandling.Ignore,
                 MissingMemberHandling = MissingMemberHandling.Ignore
             };
+                        
+            tax.PostalCodeId = postalCode.Id;
+            tax.PostalCode = postalCode.Code;
+            tax.CalculationType = calculationType.Description;
 
-            var saveTax = new DataLayer.Model.Tax();
+            var saveTax = _mapper.Map<DataLayer.Model.Tax>(tax);
+            await _taxRepository.AddAsync(saveTax);
 
-            try
-            {
-                tax.PostalCodeId = postalCode.Id;
-                tax.PostalCode = postalCode.Code;
-                saveTax = _mapper.Map<DataLayer.Model.Tax>(tax);
-                _taxRepository.Add(saveTax);
-
-            }
-            catch (System.Exception ex)
-            {
-
-                throw ex;
-            }
-             
             return Ok(JsonConvert.SerializeObject(saveTax, settings));
         }
 
@@ -107,8 +101,8 @@ namespace PaySpace.WebAPI.Controllers
                 NullValueHandling = NullValueHandling.Ignore,
                 MissingMemberHandling = MissingMemberHandling.Ignore
             };
-            var tax =  _taxRepository.GetAll();
-            return Ok(JsonConvert.SerializeObject(tax, settings));
+            var taxes =  _taxRepository.GetAll();            
+            return Ok(JsonConvert.SerializeObject(taxes, settings));
         }
 
         [HttpPost]
