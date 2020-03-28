@@ -15,7 +15,9 @@ namespace PaySpace.DataLayer
         }
         public void Add(Tax tax)
         {
+            tax.CreatedDate = DateTime.Now;
             _context.Add(tax);
+            _context.SaveChanges();
         }
         
         public Tax Get(int Id)

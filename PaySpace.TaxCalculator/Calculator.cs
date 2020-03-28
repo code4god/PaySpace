@@ -58,10 +58,11 @@ namespace PaySpace.TaxCalculator
                 new { From = 372951m, To = - (171551m-372950m *33m), Rate = 35m }
             };
 
+            var previousRange = ranges[0];
+
             foreach (var range in ranges)
             {
-                var previousRange = range;
-                if(income > range.From && income < range.To)
+                if (income > range.From && income < range.To)
                 {
                     if (income > previousRange.To)
                     {
@@ -75,6 +76,7 @@ namespace PaySpace.TaxCalculator
                     //}
                     break;
                 }
+                previousRange = range;
             }
 
             return Task.FromResult(new Tax

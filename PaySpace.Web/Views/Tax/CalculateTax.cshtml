@@ -1,0 +1,44 @@
+﻿@model CalculateTaxViewModel
+@{
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <h3 style="text-align:center">PaySpace Tax Result</h3>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Postal Code</th>
+                        <th>Income</th>
+                        <th>Taxable Amount</th>
+                        <th>Created Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Model.PostalCode</td>
+                        <td>@Model.Income</td>
+                        <td>@Model.Amount</td>
+                        <td>@Model.CreatedDate</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                <input type="button" value="back" class="btn btn-info" onclick="location.href='@Url.Action("Index", "Home")'" />
+            </p>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -84,6 +84,7 @@ namespace PaySpace.WebAPI.Controllers
             try
             {
                 tax.PostalCodeId = postalCode.Id;
+                tax.PostalCode = postalCode.Code;
                 saveTax = _mapper.Map<DataLayer.Model.Tax>(tax);
                 _taxRepository.Add(saveTax);
 

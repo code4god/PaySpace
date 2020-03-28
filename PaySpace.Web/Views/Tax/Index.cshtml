@@ -1,0 +1,44 @@
+﻿@model CalculateTaxViewModel
+@{
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="container">
+        <h3 style="text-align:center">PaySpace Taxes</h3>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Postal Code</th>
+                        <th>Income</th>
+                        <th>Taxable Amount</th>
+                        <th>Created Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tax in Model.Taxes)
+                    {
+                        <tr>
+                            <td>@tax.PostalCode</td>
+                            <td>@tax.Income</td>
+                            <td>@tax.Amount </td>
+                            <td>@tax.CreatedDate</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <p>
+                <input type="button" value="back" class="btn btn-info" onclick="location.href='@Url.Action("Index", "Home")'" />
+            </p>
+        </div>
+    </div>
+</body>
+</html>
