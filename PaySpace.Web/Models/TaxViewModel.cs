@@ -9,11 +9,11 @@ namespace PaySpace.Web.Models
 {
     public class TaxViewModel
     {
-        public decimal Income { get; set; }        
+        public decimal Income { get; set; }
         public decimal Amount { get; set; }
         public string Code { get; set; }
         public string CalculationType { get; set; }
         public DateTime CreatedDate { get; set; }
-        public IEnumerable<Tax> Taxes { get; set; }
+        public List<Tax> Taxes { get; set; }
     }
 }

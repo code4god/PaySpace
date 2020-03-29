@@ -27,28 +27,43 @@ namespace PaySpace.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var result = await HttpClientGet("tax/getall");
+            if (result == null)
+                return View();
+
             var viewModel = new TaxViewModel
             {
-                Taxes = JsonConvert.DeserializeObject<List<Tax>>(result).OrderByDescending(t=> t.CreatedDate)
+                Taxes = JsonConvert.DeserializeObject<List<Tax>>(result).OrderByDescending(t => t.CreatedDate).ToList()
             };
 
+            result = await SetCalculationType(result, viewModel);
+            result = await HttpClientGet("postalCode/codes");
+
+            var postalCodes = JsonConvert.DeserializeObject<List<PostalCode>>(result);
+            SetPostalCode(viewModel, postalCodes);
+            return View(viewModel);
+        }
+
+        private async Task<string> SetCalculationType(string result, TaxViewModel viewModel)
+        {
             foreach (var tax in viewModel.Taxes)
             {
-                result = await HttpClientGet($"calctype/gettypebypostalcode?Id={tax.PostalCode}"); 
+                result = await HttpClientGet($"calctype/gettypebypostalcode?Id={tax.PostalCode}");
                 var calculationType = JsonConvert.DeserializeObject<CalculationType>(result);
                 tax.CalculationType = calculationType.Description;
             }
 
-            result = await HttpClientGet("postalCode/codes");
-            var postalCodes = JsonConvert.DeserializeObject<List<PostalCode>>(result);
+            return result;
+        }
+
+        private static void SetPostalCode(TaxViewModel viewModel, List<PostalCode> postalCodes)
+        {
             foreach (var tax in viewModel.Taxes)
             {
                 var postalCode = postalCodes.FirstOrDefault(p => p.Id == int.Parse(tax.PostalCode));
                 if (postalCode != null)
                     tax.PostalCode = postalCode.Code;
             }
-            return View(viewModel);
-        }
+        }        
 
         [HttpPost]
         [Route("taxcalculator/calculatetax", Name = "CalculateTax")]
