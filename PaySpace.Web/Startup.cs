@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Serialization;
 using PaySpace.TaxCalculator;
 
 namespace PaySpace.Web
@@ -29,9 +23,7 @@ namespace PaySpace.Web
         {
             services.AddMvc();
             services.AddScoped<ICalculator, Calculator>();
-            services.AddAutoMapper(typeof(MappingProfile));
-            //services.AddMvc().AddNewtonsoftJson(options =>  options.SerializerSettings.ContractResolver =
-            //                                            new CamelCasePropertyNamesContractResolver());
+            services.AddAutoMapper(typeof(MappingProfile));            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

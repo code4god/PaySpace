@@ -85,9 +85,11 @@ namespace PaySpace.WebAPI.Controllers
             tax.PostalCodeId = postalCode.Id;
             tax.PostalCode = postalCode.Code;
             tax.CalculationType = calculationType.Description;
+            
 
             var saveTax = _mapper.Map<DataLayer.Model.Tax>(tax);
             await _taxRepository.AddAsync(saveTax);
+            tax.CreatedDate = saveTax.CreatedDate;
 
             return Ok(JsonConvert.SerializeObject(tax, settings));
         }

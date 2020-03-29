@@ -20,14 +20,13 @@
                 <tbody>
                     @foreach (var tax in Model.Taxes)
                     {
-                    <tr>
-                        <td>@tax.PostalCode</td>
-                        <td>@tax.CalculationType</td>
-                        <td style="text-align:right">@tax.Income</td>
-                        @*<td style="text-align:right">@string.Format("{0:C}", tax.Income)</td>*@
-                        <td style="text-align:right">@tax.Amount</td>
-                        <td>@tax.CreatedDate</td>
-                    </tr>
+                        <tr>
+                            <td>@tax.PostalCode</td>
+                            <td>@tax.CalculationType</td>
+                            <td style="text-align:right">R @string.Format("{0:###,###.#0}", @tax.Income)</td>
+                            <td style="text-align:right">R @string.Format("{0:###,###.#0}", @tax.Amount)</td>
+                            <td>@tax.CreatedDate</td>
+                        </tr>
                     }
                 </tbody>
             </table>

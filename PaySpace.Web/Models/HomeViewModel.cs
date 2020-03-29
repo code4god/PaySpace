@@ -11,7 +11,7 @@ namespace PaySpace.Web.Models
 {
     public class HomeViewModel
     {
-        [Range(1, 100000000, ErrorMessage = "Income must be greater than 0!")]
+        [Range(1, 9999999999999999.99, ErrorMessage = "Income must be greater than 0!")]
         [Required(ErrorMessage = "Income must be greater than 0!")]
         public decimal Income { get; set; }
 
