@@ -89,7 +89,7 @@ namespace PaySpace.WebAPI.Controllers
             var saveTax = _mapper.Map<DataLayer.Model.Tax>(tax);
             await _taxRepository.AddAsync(saveTax);
 
-            return Ok(JsonConvert.SerializeObject(saveTax, settings));
+            return Ok(JsonConvert.SerializeObject(tax, settings));
         }
 
         [HttpGet]

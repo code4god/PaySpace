@@ -1,0 +1,78 @@
+﻿@model TaxViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <div class="container">
+        <h3 style="text-align:center">Taxes</h3>
+        <div class="table-responsive">
+            <table id="taxes" class="display">
+                <thead>
+                    <tr>
+                        <th>Postal Code</th>
+                        <th>Tax Type</th>
+                        <th>Income</th>
+                        <th>Taxable Amount</th>
+                        <th>Created Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tax in Model.Taxes)
+                    {
+                        <tr>
+                            <td>@tax.PostalCode</td>
+                            <td>@tax.CalculationType</td>
+                            <td>@tax.Income</td>
+                            <td>@tax.Amount </td>
+                            <td>@tax.CreatedDate</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <p>
+                <input type="button" value="Home" class="btn btn-info" onclick="location.href='@Url.Action("Index", "Home")'" />
+            </p>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            var groupColumn = 1;
+            var table = $('#taxes').DataTable({
+                "columnDefs": [
+                    { "visible": false, "targets": groupColumn }
+                ],
+                "order": [[groupColumn, 'asc']],
+                "displayLength": 25,
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({ page: 'current' }).nodes();
+                    var last = null;
+
+                    api.column(groupColumn, { page: 'current' }).data().each(function (group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before(
+                                '<tr style="background-color: lightblue"><td colspan="5">' + group + '</td></tr>'
+                            );
+
+                            last = group;
+                        }
+                    });
+                }
+            });
+
+            // Order by the grouping
+            $('#taxes tbody').on('click', 'tr.group', function () {
+                var currentOrder = table.order()[0];
+                if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                    table.order([groupColumn, 'desc']).draw();
+                }
+                else {
+                    table.order([groupColumn, 'asc']).draw();
+                }
+            });
+        });
+    </script>
+</body>
+

@@ -12,12 +12,12 @@ using PaySpace.Web.Models;
 
 namespace PaySpace.Web.Controllers
 {
-    public class TaxController : Controller
+    public class TaxCalculatorController : Controller
     {
         private readonly ICalculator _calculator;
         private readonly IMapper _mapper;
 
-        public TaxController(ICalculator calculator, IMapper mapper)
+        public TaxCalculatorController(ICalculator calculator, IMapper mapper)
         {
             _calculator = calculator;
             _mapper = mapper;
@@ -51,7 +51,7 @@ namespace PaySpace.Web.Controllers
         }
 
         [HttpPost]
-        [Route("tax/calculatetax", Name = "CalculateTax")]
+        [Route("taxcalculator/calculatetax", Name = "CalculateTax")]
         public async Task<IActionResult> CalculateTaxAsync(HomeViewModel viewModel)
         {
             var tax = new Tax();
